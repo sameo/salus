@@ -74,6 +74,12 @@ extern "C" {
     static _stack_end: u8;
 }
 
+#[cfg(feature = "bazel")]
+extern "C" {
+    static _umode_bin: *const u8;
+    static _umode_bin_len: usize;
+}
+
 /// The allocator used for boot-time dynamic memory allocations.
 static HYPERVISOR_ALLOCATOR: Once<HypAlloc> = Once::new();
 
@@ -436,7 +442,20 @@ extern "C" fn kernel_init(hart_id: u64, fdt_addr: u64) {
         - mem_map.regions().next().unwrap().base().bits();
 
     // Parse the user-mode ELF containing the user-mode task.
-    let umode_bytes = include_bytes!("../target/riscv64gc-unknown-none-elf/release/umode");
+    // Safe, because it comes from the Linker
+    let umode_bytes;
+    #[cfg(feature = "bazel")]
+    {
+        let umode_bin = unsafe { core::ptr::addr_of!(_umode_bin) as *const u8 };
+        let umode_bin_len = unsafe { core::ptr::addr_of!(_umode_bin_len) as usize };
+        let pre_umode_bytes = core::ptr::slice_from_raw_parts::<u8>(umode_bin, umode_bin_len);
+        umode_bytes = unsafe { pre_umode_bytes.as_ref().unwrap() };
+    }
+    #[cfg(not(feature = "bazel"))]
+    {
+        umode_bytes = include_bytes!("../target/riscv64gc-unknown-none-elf/release/umode");
+    }
+
     let umode_elf = ElfMap::new(umode_bytes).expect("Cannot load user-mode ELF");
 
     println!("HW memory map:");

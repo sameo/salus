@@ -1,8 +1,8 @@
 [submodule "sbi-rs"]
 	path = sbi-rs
-	url = https://github.com/rivosinc/sbi-rs
+	url = https://github.com/stillson/sbi-rs
 	branch = main
 [submodule "rice"]
 	path = rice
-	url = https://github.com/rivosinc/rice
+	url = https://github.com/stillson/rice
 	branch = main
