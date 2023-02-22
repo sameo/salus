@@ -13,12 +13,12 @@ rust_binary(
         "//libuser",
         "//rice",
         "//u-mode-api",
-        "@salus-index//:const-oid",
-        "@salus-index//:der",
-        "@salus-index//:ed25519",
-        "@salus-index//:ed25519-dalek",
-        "@salus-index//:generic-array",
-        "@salus-index//:sha2",
+        "@rice-index//:const-oid",
+        "@rice-index//:der",
+        "@rice-index//:ed25519",
+        "@rice-index//:ed25519-dalek",
+        "@rice-index//:generic-array",
+        "@rice-index//:sha2",
     ],
 )
 

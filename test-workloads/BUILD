@@ -56,7 +56,7 @@ rust_binary(
         "//test-workloads",
         "@salus-default//:spin",
         "@salus-index//:arrayvec",
-        "@salus-index//:der",
+        "@rice-index//:der",
     ],
 )
 
@@ -87,7 +87,7 @@ rust_binary(
         "//sbi-rs",
         "//test-workloads",
         "@salus-index//:arrayvec",
-        "@salus-index//:der",
+        "@rice-index//:der",
     ],
 )
 
@@ -107,7 +107,7 @@ rust_library(
         "//s-mode-utils",
         "//sbi-rs",
         "@salus-index//:arrayvec",
-        "@salus-index//:der",
+        "@rice-index//:der",
     ],
 )
 
